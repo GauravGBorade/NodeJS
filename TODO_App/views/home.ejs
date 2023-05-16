@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <div class="container">
+      <form action="/create-todo" method="POST">
+        <h1>TODO APP</h1>
+        <div class="description">
+          <label for="desc">DESCRIPTION</label>
+          <input
+            type="text"
+            name="desc"
+            placeholder="What Do you want to do?"
+          />
+        </div>
+        <div class="more-info">
+          <div class="category">
+            <label for="desc">CATEGORY</label>
+            <select name="category" required>
+              <option disabled selected>Choose a Category</option>
+              <option>Personal</option>
+              <option>Work</option>
+              <option>School</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="due-date">
+            <label for="due-date">DUE DATE</label>
+            <input id="dueDate" type="date" name="dueDate" required />
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button type="submit">
+            <i class="fa-solid fa-plus"></i>Add Task
+          </button>
+          <button type="submit">
+            <i class="fa-solid fa-trash"></i>Delete Task
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="container2 todoList">
+      <% for(let i of todoList) { %>
+
+      <div class="todoItem">
+        <input type="checkbox" class="checkbox" value="<%= i._id %>" />
+        <div class="todoView">
+          <p><%= i.desc %></p>
+          <p><i class="fa-solid fa-calendar calendar"></i><%= i.dueDate %></p>
+        </div>
+      </div>
+
+      <% } %>
+    </div>
+  </body>
+  <script
+    src="https://kit.fontawesome.com/591a0673a3.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <script src="/javascript/script.js"></script>
+</html>
