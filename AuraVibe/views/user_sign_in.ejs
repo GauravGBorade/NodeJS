@@ -1,1 +1,12 @@
 <h1>Sign In</h1>
+
+<form action="/users/createSession" method="POST">
+  <input type="email" name="email" required placeholder="Enter E-Mail" />
+  <input
+    type="password"
+    name="password"
+    required
+    placeholder="Enter Password"
+  />
+  <input type="submit" value="Sign In" />
+</form>

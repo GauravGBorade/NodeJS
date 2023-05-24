@@ -6,12 +6,17 @@
     <%- style %>
   </head>
   <body>
-    <%- include('_header') %> <%- body %>
+    <%- include('_header') %>
+
+    <!-- this below is variable part of the website which will be loaded from other pages. -->
+
+    <%- body %>
+
+    <!-- <h1>Hello from layout</h1> -->
     <footer>
-      <h1>
-        This is the Layout of the website. Inside it there is variable part
-        above
-      </h1>
+      <!-- <h3>
+        This is the Layout of the website. There is variable part above
+      </h3> -->
     </footer>
   </body>
 </html>
