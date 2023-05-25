@@ -45,7 +45,30 @@ module.exports.create = function (req, res) {
     });
 };
 
+
 //Sign In user and create the user session
+
+//* finding the user first
 module.exports.createSession = function (req, res) {
-  //TODO add route
+  User.findOne({email : req.body.email}).then(
+
+    (user)=>{
+    //if user is found with given email id
+      if(user){
+        //check for password
+        if(user.password != req.body.password){
+          return res.redirect("back");
+        }
+
+        //if passwords match then send cookie and redirect to profile page
+        res.cookie("user_id",user.id);
+        return res.redirect("/users/profile");
+
+      }else{
+    // if user is not found with given email id
+        return res.redirect("back");
+      }
+
+    }
+  ).catch((err)=>{console.log("error while finding user!",err);})
 };
