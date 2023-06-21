@@ -9,6 +9,13 @@ form {
   width: 100%;
 }
 
+a {
+  text-decoration: none;
+  line-height: 4rem;
+  padding: 1rem;
+  font-size: 2rem;
+}
+
 input {
   width: 30%;
   padding: 10px;

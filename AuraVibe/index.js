@@ -5,14 +5,17 @@ const expressLayouts = require("express-ejs-layouts");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const db = require("./config/mongoose");
-
 /* used for session cookie */
 const session = require("express-session");
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
 
+//*used for saving cookie-session in mongodb
+const MongoStore = require("connect-mongo");
+
 //* getting the post data inside Body
 
+//!Middlewares ->
 // Parse URL-encoded bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -53,6 +56,16 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 100,
     },
+    store: new MongoStore(
+      {
+        mongoUrl: "mongodb://localhost/Aura-Vibe",
+        mongooseConnection: db,
+        autoRemove: "disabled",
+      },
+      (err) => {
+        console.log(err);
+      }
+    ),
   })
 );
 
