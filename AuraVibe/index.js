@@ -6,6 +6,11 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const db = require("./config/mongoose");
 
+/* used for session cookie */
+const session = require("express-session");
+const passport = require("passport");
+const passportLocal = require("./config/passport-local-strategy");
+
 //* getting the post data inside Body
 
 // Parse URL-encoded bodies
@@ -30,14 +35,32 @@ app.use(expressLayouts);
 app.set("layout extractStyles", true);
 app.set("layout extractScripts", true);
 
-//* using express router from index.js from routes folder.
-
-app.use("/", require("./routes/index"));
-
 //*telling app that we are using EJS
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
+
+//* telling app to encrypt the session cookie
+
+app.use(
+  session({
+    name: "AuraVibe",
+    //todo -> change the secret before deployment in the production
+    secret: "temptemp",
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+      maxAge: 1000 * 60 * 100,
+    },
+  })
+);
+
+//* using express router from index.js from routes folder.
+
+app.use("/", require("./routes/index"));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.listen(8000, (err) => {
   if (err) {

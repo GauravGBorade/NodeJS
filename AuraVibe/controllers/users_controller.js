@@ -66,7 +66,13 @@ module.exports.create = function (req, res) {
 
 //Sign In user and create the user session
 
-//* finding the user first
+//!creating session with PASSPORT - JS
+module.exports.createSession = function (req, res) {
+  return res.redirect("/");
+};
+
+//!manual way of creating a user session and sign in
+/* // finding the user first
 module.exports.createSession = function (req, res) {
   User.findOne({ email: req.body.email })
     .then((user) => {
@@ -88,7 +94,7 @@ module.exports.createSession = function (req, res) {
     .catch((err) => {
       console.log("error while finding user!", err);
     });
-};
+}; */
 
 module.exports.signOut = function (req, res) {
   res.clearCookie("user_id");
