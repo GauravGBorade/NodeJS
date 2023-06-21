@@ -49,6 +49,7 @@ app.use(
     secret: "temptemp",
     saveUninitialized: false,
     resave: false,
+    //* setting cookie age
     cookie: {
       maxAge: 1000 * 60 * 100,
     },
@@ -57,10 +58,12 @@ app.use(
 
 //* using express router from index.js from routes folder.
 
-app.use("/", require("./routes/index"));
-
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
+
+app.use("/", require("./routes/index"));
 
 app.listen(8000, (err) => {
   if (err) {
