@@ -83,7 +83,7 @@ module.exports.createSession = function (req, res) {
 
 //!manual way of creating a user session and sign in
 /* // finding the user first
-module.exports.createSession = function (req, res) {
+ module.exports.createSession = function (req, res) {
   User.findOne({ email: req.body.email })
     .then((user) => {
       //if user is found with given email id
