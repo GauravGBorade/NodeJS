@@ -1,17 +1,6 @@
-body {
-  background-color: lightblue;
-  text-align: center;
-  width: 70%;
-}
+h2 {
+  color: blue; }
 
-p {
-  font-size: 2rem;
-}
-
-input {
-  width: 20%;
-  background-color: lightseagreen;
-  color: white;
-  font-weight: bold;
-  font-size: 1.5rem;
-}
+#name,
+#email {
+  color: blueviolet; }
