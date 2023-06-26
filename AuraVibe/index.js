@@ -69,13 +69,11 @@ app.use(
   })
 );
 
-//* using express router from index.js from routes folder.
-
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(passport.setAuthenticatedUser);
 
+//* using express router from index.js from routes folder.
 app.use("/", require("./routes/index"));
 
 app.listen(8000, (err) => {
