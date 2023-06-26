@@ -1,0 +1,31 @@
+footer {
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  background-color: darkgray;
+  max-height: 5rem;
+  .copyright::before {
+    content: "\00A9"; /* Unicode for the copyright symbol */
+    padding: 0.5rem;
+  }
+  p {
+    font-size: 1.5rem;
+    padding: 1rem 1rem 0 1rem;
+    display: flex;
+  }
+  ul {
+    // display: flex;
+    // flex-direction: column;
+    li {
+      padding: 10px 10px 0 10px;
+      a {
+        text-decoration: none;
+        color: blueviolet;
+        font-size: 1.5rem;
+        padding: 0;
+      }
+    }
+  }
+}

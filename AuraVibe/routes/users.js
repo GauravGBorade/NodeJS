@@ -10,6 +10,7 @@ router.get("/profile", passport.checkAuthentication, usersController.profile);
 
 router.get("/sign-up", usersController.signUp);
 router.get("/sign-in", usersController.signIn);
+router.get("/sign-out", usersController.signOut);
 
 router.post("/create", usersController.create);
 
@@ -19,7 +20,5 @@ router.post(
   passport.authenticate("local", { failureRedirect: "/users/sign-in" }),
   usersController.createSession
 );
-
-router.post("/sign-out", usersController.signOut);
 
 module.exports = router;

@@ -51,7 +51,7 @@ passport.deserializeUser(function (id, done) {
 /* this completes the cycle. signing in with 1st fucntion, then serializing it and sending user.id to browser and then when
  profile page is loaded user's identity is established with deserializing the user ez. */
 
-//! sending data to ejs with help of PASSPORT-JS
+//! sending data to ejs/routes with help of PASSPORT-JS
 
 //* creating 2 middlewares for it ->
 

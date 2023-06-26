@@ -3,6 +3,8 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
     <%- style %>
   </head>
   <body>
@@ -10,13 +12,14 @@
 
     <!-- this below is variable part of the website which will be loaded from other pages. -->
 
-    <%- body %>
+    <main id="layout-main"><%- body %></main>
 
     <!-- <h1>Hello from layout</h1> -->
     <footer>
       <!-- <h3>
         This is the Layout of the website. There is variable part above
       </h3> -->
+      <%- include('_footer') %>
     </footer>
   </body>
 </html>

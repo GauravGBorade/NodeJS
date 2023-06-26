@@ -106,7 +106,17 @@ module.exports.createSession = function (req, res) {
     });
 }; */
 
-module.exports.signOut = function (req, res) {
-  res.clearCookie("user_id");
-  res.redirect("/users/sign-in");
+module.exports.signOut = function (req, res, next) {
+  //!Passport JS way of signing Out
+
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+
+  //!manual way of clearing a cookie i.e. signout
+  /* res.clearCookie("user_id");
+  res.redirect("/users/sign-in"); */
 };

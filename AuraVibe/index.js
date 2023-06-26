@@ -5,16 +5,30 @@ const expressLayouts = require("express-ejs-layouts");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const db = require("./config/mongoose");
-
-//! changed this line!!!!!!
-
+const sassMiddleware = require("node-sass-middleware");
 /* used for session cookie */
 const session = require("express-session");
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
 
-//* getting the post data inside Body
+//*used for saving cookie-session in mongodb
+const MongoStore = require("connect-mongo");
 
+//!Middlewares ->
+
+//* telling app to concert sass files to css using sassMiddleware
+
+app.use(
+  sassMiddleware({
+    src: "./assets/scss",
+    dest: "./assets/css",
+    debug: false,
+    // outputStyle: "extended",
+    prefix: "/css",
+  })
+);
+
+//* getting the post data inside Body
 // Parse URL-encoded bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -55,16 +69,24 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 100,
     },
+    store: new MongoStore(
+      {
+        mongoUrl: "mongodb://localhost/Aura-Vibe",
+        mongooseConnection: db,
+        autoRemove: "disabled",
+      },
+      (err) => {
+        console.log(err);
+      }
+    ),
   })
 );
 
-//* using express router from index.js from routes folder.
-
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(passport.setAuthenticatedUser);
 
+//* using express router from index.js from routes folder.
 app.use("/", require("./routes/index"));
 
 app.listen(8000, (err) => {

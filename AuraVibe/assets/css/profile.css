@@ -1,5 +1,6 @@
-body {
-  background-color: lightblue;
-  text-align: center;
-  width: 70%;
-}
+h2 {
+  color: blue; }
+
+#name,
+#email {
+  color: blueviolet; }
