@@ -10,7 +10,7 @@ router.get("/profile", passport.checkAuthentication, usersController.profile);
 
 router.get("/sign-up", usersController.signUp);
 router.get("/sign-in", usersController.signIn);
-router.post("/sign-out", usersController.signOut);
+router.get("/sign-out", usersController.signOut);
 
 router.post("/create", usersController.create);
 

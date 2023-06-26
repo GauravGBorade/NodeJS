@@ -5,6 +5,7 @@ const expressLayouts = require("express-ejs-layouts");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const db = require("./config/mongoose");
+const sassMiddleware = require("node-sass-middleware");
 /* used for session cookie */
 const session = require("express-session");
 const passport = require("passport");
@@ -13,9 +14,21 @@ const passportLocal = require("./config/passport-local-strategy");
 //*used for saving cookie-session in mongodb
 const MongoStore = require("connect-mongo");
 
-//* getting the post data inside Body
-
 //!Middlewares ->
+
+//* telling app to concert sass files to css using sassMiddleware
+
+app.use(
+  sassMiddleware({
+    src: "./assets/scss",
+    dest: "./assets/css",
+    debug: false,
+    // outputStyle: "extended",
+    prefix: "/css",
+  })
+);
+
+//* getting the post data inside Body
 // Parse URL-encoded bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 
