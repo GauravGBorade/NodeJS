@@ -12,10 +12,12 @@ footer {
     font-size: 1.5rem;
     padding: 1rem 1rem 0 1rem;
     display: flex; }
-  footer ul li {
-    padding: 10px 10px 0 10px; }
-    footer ul li a {
-      text-decoration: none;
-      color: blueviolet;
-      font-size: 1.5rem;
-      padding: 0; }
+  footer ul {
+    display: flex;
+    font-size: 0.1rem; }
+    footer ul li {
+      list-style: none; }
+      footer ul li a {
+        padding-top: 0;
+        size: 1rem;
+        font-size: 1.5rem; }

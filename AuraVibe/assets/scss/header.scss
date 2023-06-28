@@ -5,6 +5,21 @@ header {
   height: 60px;
   background-color: rgb(2, 210, 252);
   color: white;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.1rem;
+
+    li {
+      list-style: none;
+      a {
+        padding-top: 0;
+        size: 1rem;
+        font-size: 1.5rem;
+      }
+    }
+  }
 }
 p {
   font-size: 1.7rem;
@@ -15,19 +30,5 @@ p {
   a {
     text-decoration: none;
     color: white;
-  }
-}
-ul {
-  display: flex;
-  flex-direction: row;
-  font-size: 0.1rem;
-
-  li {
-    list-style: none;
-    a {
-      padding-top: 0;
-      size: 1rem;
-      font-size: 1.5rem;
-    }
   }
 }

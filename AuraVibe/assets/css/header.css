@@ -5,6 +5,16 @@ header {
   height: 60px;
   background-color: #02d2fc;
   color: white; }
+  header ul {
+    display: flex;
+    flex-direction: row;
+    font-size: 0.1rem; }
+    header ul li {
+      list-style: none; }
+      header ul li a {
+        padding-top: 0;
+        size: 1rem;
+        font-size: 1.5rem; }
 
 p {
   font-size: 1.7rem;
@@ -14,14 +24,3 @@ p {
   p a {
     text-decoration: none;
     color: white; }
-
-ul {
-  display: flex;
-  flex-direction: row;
-  font-size: 0.1rem; }
-  ul li {
-    list-style: none; }
-    ul li a {
-      padding-top: 0;
-      size: 1rem;
-      font-size: 1.5rem; }

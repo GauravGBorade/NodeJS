@@ -48,6 +48,7 @@ module.exports.signIn = function (req, res) {
 //Sign Up
 module.exports.create = function (req, res) {
   // console.log("body : ", req.body);
+
   if (req.body.password != req.body.confirm_password) {
     return res.redirect("back");
   }
@@ -76,9 +77,9 @@ module.exports.create = function (req, res) {
 
 //Sign In user and create the user session
 
-//!creating session with PASSPORT - JS
+//!creating session with PASSPORT - JS; not much to do here as middleware(route's middleware) and passport will take care of it.
 module.exports.createSession = function (req, res) {
-  return res.redirect("/users/profile");
+  return res.redirect("/");
 };
 
 //!manual way of creating a user session and sign in

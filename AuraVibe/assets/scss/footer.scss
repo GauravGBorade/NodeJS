@@ -16,15 +16,14 @@ footer {
     display: flex;
   }
   ul {
-    // display: flex;
-    // flex-direction: column;
+    display: flex;
+    font-size: 0.1rem;
     li {
-      padding: 10px 10px 0 10px;
+      list-style: none;
       a {
-        text-decoration: none;
-        color: blueviolet;
+        padding-top: 0;
+        size: 1rem;
         font-size: 1.5rem;
-        padding: 0;
       }
     }
   }
