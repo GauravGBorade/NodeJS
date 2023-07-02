@@ -1,19 +1,22 @@
-<h1>Sign Up</h1>
+<link rel="stylesheet" href="/css/authentication.css" />
+<div class="auth__container">
+  <h1 class="auth__heading">Sign Up</h1>
 
-<form action="/users/create" method="POST">
-  <input type="text" name="name" required placeholder="Enter Name" />
-  <input type="email" name="email" required placeholder="Enter E-Mail" />
-  <input
-    type="password"
-    name="password"
-    required
-    placeholder="Enter Password"
-  />
-  <input
-    type="password"
-    name="confirm_password"
-    required
-    placeholder="Confirm password"
-  />
-  <input type="submit" value="Sign Up" />
-</form>
+  <form class="auth__form" action="/users/create" method="POST">
+    <input type="text" name="name" required placeholder="Enter Name" />
+    <input type="email" name="email" required placeholder="Enter E-Mail" />
+    <input
+      type="password"
+      name="password"
+      required
+      placeholder="Enter Password"
+    />
+    <input
+      type="password"
+      name="confirm_password"
+      required
+      placeholder="Confirm password"
+    />
+    <input class="auth__btn" type="submit" value="Sign Up" />
+  </form>
+</div>

@@ -1,23 +1,20 @@
-footer {
-  background-color: darkgray;
-  max-height: 5rem; }
-  footer .footer-container {
+.footer {
+  background-color: gray;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+  .footer__container {
     display: flex;
-    justify-content: space-between; }
-  footer .copyright::before {
-    content: "\00A9";
-    /* Unicode for the copyright symbol */
-    padding: 0.5rem; }
-  footer p {
-    font-size: 1.5rem;
-    padding: 1rem 1rem 0 1rem;
-    display: flex; }
-  footer ul {
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem; }
+  .footer p {
+    color: white;
+    font-size: 1.2rem; }
+  .footer__list {
     display: flex;
-    font-size: 0.1rem; }
-    footer ul li {
-      list-style: none; }
-      footer ul li a {
-        padding-top: 0;
-        size: 1rem;
-        font-size: 1.5rem; }
+    flex-direction: column;
+    gap: 10px; }
+    .footer__list li {
+      font-size: 1.125rem; }

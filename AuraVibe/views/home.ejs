@@ -1,7 +1,8 @@
-<link rel="stylesheet" href="home.css" />
-
 <h1>Welcome to AuraVibe!</h1>
+
+<% if (!locals.user) { %>
 <h3>Please Sign-in to view the posts :) or Sign-up</h3>
+<%}%>
 
 <section id="feed-posts">
   <% if (locals.user) { %>
@@ -13,6 +14,7 @@
       cols="30"
       rows="4"
       placeholder="Type Here..."
+      required
     ></textarea>
     <input type="submit" value="Post" />
   </form>
@@ -25,6 +27,28 @@
           <%= post.content %>
           <small><%= post.user.name %> </small>
         </p>
+        <div class="post-comments">
+          <form action="/comments/create-comment" method="POST">
+            <input
+              type="text"
+              name="content"
+              placeholder="Add a Comment.."
+              required
+            />
+            <input type="hidden" name="post" value="<%= post._id %>" />
+            <input type="submit" value="Add Comment" />
+          </form>
+
+          <div class="post-comments-list">
+            <ul id="post-comment-<%= post._id %>">
+              <% for(comment of post.comments){%>
+              <p><%= comment.content %></p>
+              <br />
+              <small><%= comment.user.name %></small>
+              <% } %>
+            </ul>
+          </div>
+        </div>
       </li>
       <%}%>
     </ul>

@@ -1,12 +1,15 @@
-<h1>Sign In</h1>
+<link rel="stylesheet" href="/css/authentication.css" />
+<div class="auth__container">
+  <h1 class="auth__heading">Sign In</h1>
 
-<form action="/users/create-session" method="POST">
-  <input type="email" name="email" required placeholder="Enter E-Mail" />
-  <input
-    type="password"
-    name="password"
-    required
-    placeholder="Enter Password"
-  />
-  <input type="submit" value="Sign In" />
-</form>
+  <form class="auth__form" action="/users/create-session" method="POST">
+    <input type="email" name="email" required placeholder="Enter E-Mail" />
+    <input
+      type="password"
+      name="password"
+      required
+      placeholder="Enter Password"
+    />
+    <input class="auth__btn" type="submit" value="Sign In" />
+  </form>
+</div>

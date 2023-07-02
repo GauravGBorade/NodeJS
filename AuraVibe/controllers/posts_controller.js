@@ -5,7 +5,6 @@ module.exports.create = function (req, res) {
     user: req.user._id,
   }).then((post) => {
     console.log(post);
-
     res.redirect("back");
   });
 };
