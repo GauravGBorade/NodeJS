@@ -1,10 +1,11 @@
 .header {
+  max-height: 50px;
   background-color: #b64fc8;
   display: flex;
   justify-content: space-between;
   align-items: center; }
   .header__mainHeading {
-    font-size: 2rem;
+    font-size: 1.25rem;
     margin: 0;
     padding: 1rem; }
   .header__list {
@@ -13,4 +14,4 @@
     align-items: center; }
     .header__list li {
       padding: 0 1rem;
-      font-size: 1.25rem; }
+      font-size: 1.125rem; }

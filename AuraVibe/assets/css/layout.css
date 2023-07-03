@@ -5,11 +5,16 @@ body {
   padding: 0;
   margin: 0;
   position: relative;
-  height: 100vh; }
+  height: 100vh;
+  background-color: #000; }
 
-main {
+#layout-main {
   overflow: scroll;
-  height: 87vh; }
+  height: 88.6vh;
+  width: 60vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center; }
 
 a {
   text-decoration: none;

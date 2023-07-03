@@ -5,6 +5,9 @@
   align-items: center;
   height: 100%; }
 
+.auth__heading {
+  color: #fff; }
+
 .auth__form {
   display: flex;
   flex-direction: column;
