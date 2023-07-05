@@ -29,6 +29,10 @@
         <% for (post of posts) {%>
         <li>
           <div class="feed-container__post-info">
+            <% if (locals.user.id == post.user.id) { %>
+            <small><a href="/posts/destroy/<%= post.id %>">Delete</a></small>
+
+            <% } %>
             <p class="feed-container__post-user"><%= post.user.name %></p>
             <p class="feed-container__post-content"><%= post.content %></p>
           </div>
