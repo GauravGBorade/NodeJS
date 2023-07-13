@@ -4,8 +4,12 @@ module.exports.profile = function (req, res) {
   //! as we used passport js "user" in local is set in passport-local-strategy
   //! we dont have to explicitelty assign and pass user to ejs file now like we did before we can simply just load the profile page and use "user" variable there to access user data.
   // console.log(res.locals);
-  return res.render("user_profile", {
-    title: "Profile",
+
+  User.findById(req.params.id).then((user) => {
+    return res.render("user_profile", {
+      title: "Profile",
+      profile_user: user,
+    });
   });
 
   //! manual(old) way of showing profile page.
@@ -25,6 +29,22 @@ module.exports.profile = function (req, res) {
   //   console.log("sent to sing-in as user is not signed in");
   //   return res.redirect("/users/sign-in");
   // }
+};
+
+//!updating user's info
+module.exports.update = function (req, res) {
+  if (req.user.id == req.params.id) {
+    User.findByIdAndUpdate(req.params.id, {
+      name: req.body.name,
+      email: req.body.email,
+      //we can put just req.body instead of above 2 fields as it is exactly those 2 fields. Nothing more or less.
+    }).then((user) => {
+      //for now nothing with this returned user object.
+      return res.redirect("back");
+    });
+  } else {
+    return res.status(401).send("Unauthorized");
+  }
 };
 
 module.exports.signUp = function (req, res) {

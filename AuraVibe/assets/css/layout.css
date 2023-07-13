@@ -6,7 +6,8 @@ body {
   margin: 0;
   position: relative;
   height: 100vh;
-  background-color: #000; }
+  background-color: #000;
+  color: white; }
 
 #layout-main {
   overflow: scroll;

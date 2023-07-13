@@ -26,3 +26,28 @@ module.exports.create = function (req, res) {
       console.log(err);
     });
 };
+
+//! deleting the comments
+module.exports.destroy = function (req, res) {
+  //* comment to be deleted will be sent from front end using string params inside req.params.id from URL.
+
+  Comment.findById(req.params.id).then((comment) => {
+    if (comment.user == req.user.id) {
+      /* We want to delete the comment from 2 places 1. from comment db and 2. from post's comment array.
+      but once we delete it from comment db; the post.id which it is associated with will also be gone.
+      so here we are first copying the post.id from comemnt db which is stored in comment.post and later use it to find the post. */
+
+      let postId = comment.post;
+
+      comment.deleteOne({ id: req.params.id });
+
+      Post.findByIdAndUpdate(postId, {
+        $pull: { comments: req.params.id },
+      }).then(() => {
+        return res.redirect("back");
+      });
+    } else {
+      return res.redirect("back");
+    }
+  });
+};

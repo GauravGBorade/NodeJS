@@ -1,8 +1,35 @@
 <link rel="stylesheet" href="/css/profile.css" />
 <h1>Profile Page</h1>
 
-<h2>
-  <span id="name"><%= user.name %></span>
-  is signed in with email
-  <span id="email"><%= user.email %></span>
-</h2>
+<% if (user.id == profile_user.id) { %>
+
+<!-- If user (who's profile is currently viewed right now) matches with current signed in user then only show the form to update the user's info-->
+
+<form action="/users/update/<%= profile_user.id %>" method="POST">
+  <input
+    required
+    type="email"
+    name="email"
+    placeholder="Your E-Mail"
+    value="<%= profile_user.email  %>"
+  />
+
+  <input
+    required
+    type="text"
+    name="name"
+    placeholder="Your Name"
+    value="<%= profile_user.name  %>"
+  />
+
+  <input type="submit" value="Update" />
+</form>
+
+<% } else {%>
+
+<!-- Else only show the user's info and dont let other user's see the form and update the info :)  -->
+
+<p id="name"><%= profile_user.name %></p>
+<p id="email"><%= profile_user.email %></p>
+
+<% } %>
