@@ -27,12 +27,11 @@ module.exports.home = function (req, res) {
 }; */
 
 //! converted above code to async await code
-
-try {
-  //* use try catch to catch errors.
-  module.exports.home = async function (req, res) {
+module.exports.home = async function (req, res) {
+  try {
+    //* use try catch to catch errors.
     //* first get all the posts with user and comments populated in it.
-    let posts = await posts
+    let post = await posts
       .find({})
       .populate("user")
       .populate({
@@ -48,11 +47,11 @@ try {
     //* then in the end send users and posts to browser.
     return res.render("home", {
       title: "AuraVibe Social",
-      posts: posts,
+      posts: post,
       all_users: users,
     });
-  };
-} catch (error) {
-  console.log("Error", error);
-  return;
-}
+  } catch (error) {
+    console.log("Error", error);
+    return;
+  }
+};

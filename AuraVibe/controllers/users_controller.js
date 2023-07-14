@@ -1,16 +1,21 @@
 const User = require("../models/user");
 
-module.exports.profile = function (req, res) {
+module.exports.profile = async function (req, res) {
   //! as we used passport js "user" in local is set in passport-local-strategy
   //! we dont have to explicitelty assign and pass user to ejs file now like we did before we can simply just load the profile page and use "user" variable there to access user data.
   // console.log(res.locals);
 
-  User.findById(req.params.id).then((user) => {
+  try {
+    let user = await User.findById(req.params.id);
+
     return res.render("user_profile", {
       title: "Profile",
       profile_user: user,
     });
-  });
+  } catch (error) {
+    console.log(error);
+    return;
+  }
 
   //! manual(old) way of showing profile page.
 
@@ -32,18 +37,21 @@ module.exports.profile = function (req, res) {
 };
 
 //!updating user's info
-module.exports.update = function (req, res) {
-  if (req.user.id == req.params.id) {
-    User.findByIdAndUpdate(req.params.id, {
-      name: req.body.name,
-      email: req.body.email,
-      //we can put just req.body instead of above 2 fields as it is exactly those 2 fields. Nothing more or less.
-    }).then((user) => {
-      //for now nothing with this returned user object.
+module.exports.update = async function (req, res) {
+  try {
+    if (req.user.id == req.params.id) {
+      await User.findByIdAndUpdate(req.params.id, {
+        name: req.body.name,
+        email: req.body.email,
+        //we can put just req.body instead of above 2 fields as it is exactly those 2 fields. Nothing more or less.
+      });
       return res.redirect("back");
-    });
-  } else {
-    return res.status(401).send("Unauthorized");
+    } else {
+      return res.status(401).send("Unauthorized");
+    }
+  } catch (err) {
+    console.log(err);
+    return;
   }
 };
 
@@ -66,37 +74,30 @@ module.exports.signIn = function (req, res) {
 };
 
 //Sign Up
-module.exports.create = function (req, res) {
+module.exports.create = async function (req, res) {
   // console.log("body : ", req.body);
-
-  if (req.body.password != req.body.confirm_password) {
-    return res.redirect("back");
+  try {
+    // Checking if password and confirm password fields match or not.
+    if (req.body.password != req.body.confirm_password) {
+      return res.redirect("back");
+    }
+    // checking if email already exist in the database, if it does then dont create the user else create the user
+    let user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      // if user email DOESN't exist in database create one and redirect to sign in page.
+      await User.create(req.body);
+      res.redirect("/users/sign-in");
+    } else {
+      // if user email DOES exist in database then just send him back for now.
+      return res.redirect("back");
+    }
+  } catch (err) {
+    console.log("Error Finding the User in DB:", err);
+    return;
   }
-
-  //checking if email already exist in the database, if it does then dont create the user else create the user
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      if (!user) {
-        //*if user email DOESN't exist in database
-        User.create(req.body)
-          .then(() => res.redirect("/users/sign-in")) // Wrap res.redirect in a function
-          .catch((err) => {
-            console.log("Error Creating the User in DB:", err);
-            // Handle the error appropriately
-          });
-      } else {
-        //*if user email DOES exist in database
-        return res.redirect("back");
-      }
-    })
-    .catch((err) => {
-      console.log("Error Finding the User in DB:", err);
-      // Handle the error appropriately
-    });
 };
 
 //Sign In user and create the user session
-
 //!creating session with PASSPORT - JS; not much to do here as middleware(route's middleware) and passport will take care of it.
 module.exports.createSession = function (req, res) {
   return res.redirect("/");
