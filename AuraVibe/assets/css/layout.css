@@ -4,22 +4,12 @@
 body {
   padding: 0;
   margin: 0;
-  position: relative;
-  height: 100vh;
-  background-color: #000;
-  color: white; }
-
-#layout-main {
-  overflow: scroll;
-  height: 88.6vh;
-  width: 60vw;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center; }
+  /* text-align: center; */ }
+  body #layout-main {
+    height: 100%; }
 
 a {
-  text-decoration: none;
-  color: #fff; }
+  text-decoration: none; }
 
 ul {
   list-style: none; }

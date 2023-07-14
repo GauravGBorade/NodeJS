@@ -9,6 +9,11 @@
     margin: 0;
     padding: 1rem;
   }
+  p {
+    a {
+      color: white;
+    }
+  }
 
   &__list {
     display: flex;
@@ -18,6 +23,9 @@
     li {
       padding: 0 1rem;
       font-size: 1.125rem;
+      a {
+        color: white;
+      }
     }
   }
 }

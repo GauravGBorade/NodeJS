@@ -1,19 +1,11 @@
-.footer {
-  background-color: gray;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0; }
-  .footer__container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem; }
-  .footer p {
+#layout-footer {
+  color: white;
+  background: grey;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: space-between; }
+  #layout-footer a {
     color: white;
-    font-size: 1.2rem; }
-  .footer__list {
-    display: flex;
-    gap: 10px; }
-    .footer__list li {
-      font-size: 1.125rem; }
+    text-decoration: none; }
+  #layout-footer .footer-nav ul {
+    list-style: none; }

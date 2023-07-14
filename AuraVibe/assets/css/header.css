@@ -8,6 +8,8 @@
     font-size: 1.25rem;
     margin: 0;
     padding: 1rem; }
+  .header p a {
+    color: white; }
   .header__list {
     display: flex;
     justify-content: space-around;
@@ -15,3 +17,5 @@
     .header__list li {
       padding: 0 1rem;
       font-size: 1.125rem; }
+      .header__list li a {
+        color: white; }

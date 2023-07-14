@@ -4,22 +4,26 @@
 body {
   padding: 0;
   margin: 0;
-  position: relative;
-  height: 100vh;
-  background-color: #000;
-  color: white;
+  /* text-align: center; */
+  #layout-main {
+    height: 100%;
+  }
+  //   position: relative;
+  //   height: 100vh;
+  //   // background-color: #000;
+  //   // color: white;
 }
-#layout-main {
-  overflow: scroll;
-  height: 88.6vh;
-  width: 60vw;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
+// #layout-main {
+//   overflow: scroll;
+//   height: 88.6vh;
+//   width: 60vw;
+//   margin: 0 auto;
+//   display: flex;
+//   justify-content: center;
+// }
 a {
   text-decoration: none;
-  color: #fff;
+  // color: #fff;
 }
 ul {
   list-style: none;

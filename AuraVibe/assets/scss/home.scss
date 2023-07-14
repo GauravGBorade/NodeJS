@@ -1,89 +1,15 @@
-.container {
+#home-container {
   display: flex;
 
-  background-color: #1e1e1e;
-  overflow: scroll;
-  width: 100%;
-  justify-content: center;
-  color: #fff;
-
-  .feed-posts {
-    &__heading {
-      text-align: center;
-      font-size: 1.25rem;
-    }
-    &__form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      input[type="submit"] {
-        padding: 0.5rem 0;
-        width: 100px;
-        font-size: 1.25rem;
-      }
-      textarea {
-        background-color: transparent;
-        padding: 1rem;
-        color: white;
-        font-size: 1.125rem;
-        border: white 2px solid;
-        border-radius: 5px;
-        resize: none;
-        &::placeholder {
-          font-size: 1.125rem;
-        }
-      }
-    }
-  }
-  .feed-container {
-    li {
-      border-top: #000 solid 1px;
-      padding: 1rem;
-    }
-    max-width: 100%;
-    &__post-info {
-      align-items: flex-start;
-      display: flex;
-      padding: 0.5rem;
-      flex-direction: column;
-      p {
-        font-size: 1.25rem;
-        margin: 0.5rem;
-      }
-    }
-    &__post-user {
-      text-transform: capitalize;
-    }
+  #feed-posts {
+    width: 70%;
+    padding: 10px;
   }
 
-  .post-comments {
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-
-      input[type="text"] {
-        width: 70%; /* Adjust the size as desired */
-        padding: 0.5rem;
-        margin: 0 auto;
-        font-size: 1.125rem;
-        border-radius: 5px;
-        color: white;
-        background-color: transparent;
-        border: 1px solid white;
-      }
-
-      input[type="submit"] {
-        align-self: flex-end;
-        width: 27%;
-        padding: 0.5rem;
-        font-size: 1.125rem;
-        background-color: #cf5ae3;
-        color: white;
-        border: none;
-        border-radius: 5px;
-      }
-    }
+  #user-friends {
+    width: 30%;
+    padding: 10px;
+    border-left: 2px solid lightpink;
+    height: 100%;
   }
 }
