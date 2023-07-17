@@ -100,6 +100,8 @@ module.exports.create = async function (req, res) {
 //Sign In user and create the user session
 //!creating session with PASSPORT - JS; not much to do here as middleware(route's middleware) and passport will take care of it.
 module.exports.createSession = function (req, res) {
+  req.flash("success", "Signed In Successfully");
+
   return res.redirect("/");
 };
 
@@ -135,6 +137,7 @@ module.exports.signOut = function (req, res, next) {
     if (err) {
       return next(err);
     }
+    req.flash("success", "Logged Out!");
     res.redirect("/");
   });
 
