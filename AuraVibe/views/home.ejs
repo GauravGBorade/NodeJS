@@ -24,12 +24,13 @@
       <input type="submit" value="Post" />
     </form>
 
-    <div class="feed-container">
+    <div id="post-list-container">
       <ul>
         <% for (post of posts) {%> <%- include("_post") -%> <%}%>
       </ul>
     </div>
   </section>
+
   <section id="user-friends">
     <h4>Friends</h4>
 
@@ -40,3 +41,4 @@
   </section>
   <% } %>
 </div>
+<script src="/js/home_posts.js"></script>

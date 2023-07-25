@@ -51,7 +51,7 @@ app.use(expressLayouts);
 //* telling app to put link for styles of individual pages into layout's head tag
 
 app.set("layout extractStyles", true);
-app.set("layout extractScripts", true);
+// app.set("layout extractScripts", true);
 
 //*telling app that we are using EJS
 
