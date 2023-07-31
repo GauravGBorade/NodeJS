@@ -15,6 +15,7 @@ module.exports.create = async function (req, res) {
         //we return the status as 200 i.e. success and set data to post which is created.
         data: {
           post: post,
+          userName: req.user.name,
         },
         message: "Post Created!",
       });
@@ -39,6 +40,16 @@ module.exports.destroy = async function (req, res) {
     if (post.user == req.user.id) {
       post.deleteOne({ id: req.params.id });
       await Comment.deleteMany({ post: req.params.id });
+
+      if (req.xhr) {
+        return res.status(200).json({
+          data: {
+            post_id: req.params.id,
+          },
+          message: "Post Deleted!",
+        });
+      }
+
       return res.redirect("back");
     } else {
       return res.redirect("back");

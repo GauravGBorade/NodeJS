@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const fs = require("fs");
+const path = require("path");
 
 module.exports.profile = async function (req, res) {
   //! as we used passport js "user" in local is set in passport-local-strategy
@@ -38,20 +40,41 @@ module.exports.profile = async function (req, res) {
 
 //!updating user's info
 module.exports.update = async function (req, res) {
-  try {
-    if (req.user.id == req.params.id) {
-      await User.findByIdAndUpdate(req.params.id, {
-        name: req.body.name,
-        email: req.body.email,
+  if (req.user.id == req.params.id) {
+    try {
+      //find user
+      let user = await User.findById(req.params.id);
+      User.uploadedAvatar(req, res, function (err) {
+        if (err) {
+          console.log(err);
+        }
+
+        //if there's no error
+        user.name = req.body.name;
+        user.email = req.body.email;
         //we can put just req.body instead of above 2 fields as it is exactly those 2 fields. Nothing more or less.
+        if (req.file) {
+          if (
+            user.avatar &&
+            fs.existsSync(path.join(__dirname, "..", user.avatar))
+          ) {
+            fs.unlinkSync(path.join(__dirname, "..", user.avatar));
+          } else {
+            user.avatar = null;
+          }
+
+          //this is saving path of uploaded file into avatar field in the User's Model.
+          user.avatar = User.avatarPath + "/" + req.file.filename;
+        }
+        user.save();
+        res.redirect("back");
       });
-      return res.redirect("back");
-    } else {
-      return res.status(401).send("Unauthorized");
+    } catch (error) {
+      console.log(error);
     }
-  } catch (err) {
-    console.log(err);
-    return;
+  } else {
+    req.flash("err", err);
+    return res.redirect("back");
   }
 };
 
@@ -101,7 +124,7 @@ module.exports.create = async function (req, res) {
 //!creating session with PASSPORT - JS; not much to do here as middleware(route's middleware) and passport will take care of it.
 module.exports.createSession = function (req, res) {
   req.flash("success", "Signed In Successfully");
-
+  console.log("flasshed for sign in");
   return res.redirect("/");
 };
 

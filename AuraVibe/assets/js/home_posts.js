@@ -14,8 +14,9 @@
         success: function (data) {
           console.log("Logged from JS file from AJAX");
           console.log(data);
-          let newPost = new newPostInDom(data.data.post);
+          let newPost = new newPostInDom(data.data.post, data.data.userName);
           $("#post-list-container>ul").prepend(newPost);
+          deletePost($(" .delete-post-button", newPost));
         },
         error: function (err) {
           console.log(err.responseText);
@@ -24,17 +25,17 @@
     });
   };
 
-  let newPostInDom = function (post) {
+  let newPostInDom = function (post, userName) {
     return $(`
     <li id="post-${post._id}">
       <div class="feed-container__post-info">
           <small
-            ><a class="delete-post-button" href="/posts/destroy/${post.id}"
+            ><a class="delete-post-button" href="/posts/destroy/${post._id}"
               >Delete Post</a
             ></small
         >
 
-        <p class="feed-container__post-user">${post.user.name}</p>
+        <p class="feed-container__post-user">${userName}</p>
         <p class="feed-container__post-content">${post.content}</p>
       </div>
   
@@ -56,7 +57,32 @@
   `);
   };
 
-  //! Method to create a post in DOM
+  // method to delete a post from DOM using AJAX
+  let deletePost = function (deleteLink) {
+    $(deleteLink).click(function (e) {
+      e.preventDefault();
+
+      $.ajax({
+        type: "get",
+        url: $(deleteLink).prop("href"),
+        success: function (data) {
+          $(`#post-${data.data.post_id}`).remove();
+          new Noty({
+            theme: "relax",
+            text: "Post Deleted",
+            type: "success",
+            layout: "topRight",
+            timeout: 1500,
+          }).show();
+        },
+        error: function (error) {
+          console.log(error.responseText);
+        },
+      });
+    });
+  };
+
+  //! calling above main function to create the post in dom.
   createPost();
 
   //!include this part after creating the comment. Add it inside post-comments-list's ul list.
