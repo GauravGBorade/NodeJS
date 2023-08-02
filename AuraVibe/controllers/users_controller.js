@@ -55,11 +55,14 @@ module.exports.update = async function (req, res) {
         //we can put just req.body instead of above 2 fields as it is exactly those 2 fields. Nothing more or less.
         if (req.file) {
           if (
+            //* checking if avatar's path exist in user.avatar and there is data linked to it exist.
             user.avatar &&
-            fs.existsSync(path.join(__dirname, "..", user.avatar))
+            fs.existsSync(path.join(__dirname, "..", user.avatar)) //checks if file/data is present at the given path.
           ) {
+            //! if both exists then we remove the path as well as link from db.
             fs.unlinkSync(path.join(__dirname, "..", user.avatar));
           } else {
+            //* but if the file is not there then remove the path.
             user.avatar = null;
           }
 
