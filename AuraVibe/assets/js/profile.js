@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       reader.addEventListener("load", function () {
         // Add an event listener to the FileReader that triggers when the file is loaded.
-
         const image = new Image();
+
         image.src = reader.result;
         // Create a new Image element and set its source to the data URL obtained from the FileReader.
 
