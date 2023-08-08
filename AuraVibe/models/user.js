@@ -44,5 +44,19 @@ userSchema.statics.uploadedAvatar = multer({ storage: storage }).single(
 );
 userSchema.statics.avatarPath = AVATAR_PATH;
 
+//! Exclude password from API responses
+userSchema.methods.toJSON = function () {
+  // Convert the current user object (document) to a plain JavaScript object.
+  const userObject = this.toObject();
+
+  // Delete the 'password' property from the user object.
+  // This ensures that the 'password' field will not be included in the JSON representation.
+  delete userObject.password;
+
+  // Return the modified user object without the 'password' field.
+  // This object will be used to generate the JSON representation of the user.
+  return userObject;
+};
+
 const User = mongoose.model("user", userSchema);
 module.exports = User;

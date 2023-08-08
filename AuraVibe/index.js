@@ -5,7 +5,8 @@ const expressLayouts = require("express-ejs-layouts");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const db = require("./config/mongoose");
-const sassMiddleware = require("node-sass-middleware");
+//!commented to run on windows
+// const sassMiddleware = require("node-sass-middleware");
 /* used for session cookie */
 const session = require("express-session");
 const passport = require("passport");
@@ -19,8 +20,9 @@ const MongoStore = require("connect-mongo");
 //!Middlewares ->
 
 //* telling app to concert sass files to css using sassMiddleware
+//!commented to run on windows
 
-app.use(
+/* app.use(
   sassMiddleware({
     src: "./assets/scss",
     dest: "./assets/css",
@@ -28,7 +30,7 @@ app.use(
     // outputStyle: "extended",
     prefix: "/css",
   })
-);
+); */
 
 //* getting the post data inside Body
 // Parse URL-encoded bodies
