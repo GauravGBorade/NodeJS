@@ -5,14 +5,16 @@ const expressLayouts = require("express-ejs-layouts");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const db = require("./config/mongoose");
-//!commented to run on windows
-// const sassMiddleware = require("node-sass-middleware");
+//!commented this to run on windows
+const sassMiddleware = require("node-sass-middleware");
 /* used for session cookie */
 const session = require("express-session");
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
+const passportJwt = require("./config/passport-jwt-strategy");
 const flash = require("connect-flash");
 const customMiddleware = require("./config/middleware");
+const googleStrategy = require("./config/passport-google-oauth2-strategy");
 
 //*used for saving cookie-session in mongodb
 const MongoStore = require("connect-mongo");
@@ -20,9 +22,9 @@ const MongoStore = require("connect-mongo");
 //!Middlewares ->
 
 //* telling app to concert sass files to css using sassMiddleware
-//!commented to run on windows
+//!commented this to run on windows
 
-/* app.use(
+app.use(
   sassMiddleware({
     src: "./assets/scss",
     dest: "./assets/css",
@@ -30,7 +32,7 @@ const MongoStore = require("connect-mongo");
     // outputStyle: "extended",
     prefix: "/css",
   })
-); */
+);
 
 //* getting the post data inside Body
 // Parse URL-encoded bodies

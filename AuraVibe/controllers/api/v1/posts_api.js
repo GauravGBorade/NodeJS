@@ -25,20 +25,23 @@ module.exports.index = async function (req, res) {
   });
 };
 
+//* deleting post without authorisation.
 module.exports.destroy = async function (req, res) {
   try {
     //! we are passing post.id in the url using string params.
     let post = await Post.findById(req.params.id);
-    /* checking if user who is deleting the post i.e. who made the request is actually the user who created the post.
-    i.e. post.user will give us user who is creator of the post as we fetched it in .then after finding the post.
-    and req.user.id will give us user who is currently signed in ez */
-    //! note that req.user._id gives us id in object format and req.user.id gives us in string format.
 
-    post.deleteOne({ id: req.params.id });
-    await Comment.deleteMany({ post: req.params.id });
-    return res.status(200).json({
-      message: "Post & it's comments are deleted!!",
-    });
+    if (req.user.id == post.user) {
+      post.deleteOne({ id: req.params.id });
+      await Comment.deleteMany({ post: req.params.id });
+      return res.status(200).json({
+        message: "Post & it's comments are deleted!!",
+      });
+    } else {
+      return res.status(401).json({
+        message: "You cannot delete this post!",
+      });
+    }
   } catch (err) {
     console.log(err);
     return res.json(500, {
@@ -47,7 +50,7 @@ module.exports.destroy = async function (req, res) {
   }
 };
 
-module.exports.users = async function (req, res) {
+/* module.exports.users = async function (req, res) {
   try {
     let users = await User.find({});
 
@@ -57,4 +60,4 @@ module.exports.users = async function (req, res) {
   } catch (err) {
     console.log(err);
   }
-};
+}; */

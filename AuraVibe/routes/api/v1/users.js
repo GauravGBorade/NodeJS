@@ -2,7 +2,8 @@
 const express = require("express");
 const router = express.Router();
 
-router.use("/posts", require("./posts"));
-router.use("/users", require("./users"));
+const usersApi = require("../../../controllers/api/v1/user_api");
+
+router.post("/create-session", usersApi.createSession);
 
 module.exports = router;
