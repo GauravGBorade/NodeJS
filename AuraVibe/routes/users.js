@@ -32,12 +32,13 @@ router.post(
   usersController.createSession
 );
 
-//google oauth routes
+// Route to initiate Google OAuth authentication
 router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
+// Route to handle Google OAuth callback after successful authentication
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/users/sign-in" }),

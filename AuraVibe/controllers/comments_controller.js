@@ -1,5 +1,6 @@
 const Comment = require("../models/comment");
 const Post = require("../models/post");
+const commentMailer = require("../mailers/comments_mailer");
 module.exports.create = async function (req, res) {
   try {
     // post here is an input field we set as hidden with the name "post" in the EJS file.
@@ -15,7 +16,24 @@ module.exports.create = async function (req, res) {
       });
       post.comments.push(comment);
       post.save();
+
+      //as we are passing comment object to the mailer it requires the user's info in it. thus we need to populate it.
+      await (
+        await comment.populate("user", "name email")
+      ).populate({
+        path: "post",
+        populate: { path: "user", select: "name email" },
+        select: "content",
+      });
+
+      console.log("comment passing *****", comment);
+      // (await comment.populate("post")).populate({path:"user", populate:""});
+      //sending the comment object to the mailer.
+      commentMailer.newCommment(comment);
+
+      req.flash("success", "Comment Published!");
       res.redirect("/");
+      // comment = await comment.populate("user", "name").execPopulate();
     }
   } catch (err) {
     console.log(err);

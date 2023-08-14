@@ -1,0 +1,20 @@
+<div>
+  <p>Hi! <%= comment.post.user.name %></p>
+  <br />
+  <p>
+    Your post <strong><%= comment.post.content %></strong> Just got a new
+    Comment!!
+  </p>
+  <br />
+  <br />
+
+  <div>
+    <h5>Comment</h5>
+    <%= comment.content %>
+
+    <p>from</p>
+    <p><%= comment.user.name %></p>
+  </div>
+
+  Thanks
+</div>
