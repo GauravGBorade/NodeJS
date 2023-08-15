@@ -1,6 +1,8 @@
 const Comment = require("../models/comment");
 const Post = require("../models/post");
 const commentMailer = require("../mailers/comments_mailer");
+const commentEmailKueWorker = require("../workers/comment_email_worker");
+const queue = require("../config/kue");
 module.exports.create = async function (req, res) {
   try {
     // post here is an input field we set as hidden with the name "post" in the EJS file.
@@ -26,10 +28,21 @@ module.exports.create = async function (req, res) {
         select: "content",
       });
 
-      console.log("comment passing *****", comment);
+      // console.log("comment passing *****", comment);
       // (await comment.populate("post")).populate({path:"user", populate:""});
       //sending the comment object to the mailer.
-      commentMailer.newCommment(comment);
+
+      //!as we are using kue we will call comment mails from it and not from here.
+      //* commentMailer.newCommment(comment);
+
+      //! calling kue worker
+
+      let job = queue.create("emails", comment).save(function (err) {
+        if (err) {
+          console.log(err);
+        }
+        console.log("Job Added to the Queue!", job.id);
+      });
 
       req.flash("success", "Comment Published!");
       res.redirect("/");

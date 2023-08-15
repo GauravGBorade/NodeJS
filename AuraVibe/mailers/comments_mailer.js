@@ -21,7 +21,8 @@ exports.newCommment = (comment) => {
         console.log("error in sending the mail", err); // Log an error if email sending fails
         return;
       }
-      console.log("mail delivered", info); // Log the successful delivery of the email
+      console.log("Mail Delivered!");
+      // console.log("mail delivered", info); // Log the successful delivery of the email
       return;
     }
   );
