@@ -1,6 +1,11 @@
 const User = require("../models/user");
 const fs = require("fs");
 const path = require("path");
+//resetting password required dependencies
+const crypto = require("crypto");
+const ResetToken = require("../models/resetToken");
+//to send the email
+const resetPasswordMailer = require("../mailers/reset_password_mailer");
 
 module.exports.profile = async function (req, res) {
   //! as we used passport js "user" in local is set in passport-local-strategy
@@ -170,4 +175,107 @@ module.exports.signOut = function (req, res, next) {
   //!manual way of clearing a cookie i.e. signout
   /* res.clearCookie("user_id");
   res.redirect("/users/sign-in"); */
+};
+
+//!resetting the password
+
+//* creating the token and sending it to the user via email.
+module.exports.createResetToken = async function (req, res) {
+  try {
+    //find the user in db with given email id
+
+    const userFound = await User.findOne({ email: req.body.email });
+    if (!userFound) {
+      return res.redirect("/");
+    }
+
+    //if email id matches then get the user and  genrate the token
+    const accessToken = crypto.randomBytes(20).toString("hex");
+
+    //put the user and accessToken in the database
+    const resetToken = await ResetToken.create({
+      user: userFound._id,
+      accessToken: accessToken,
+    });
+
+    //send the email with user info and link to reset the pass.
+    // follow next step in resetPasswordMaielr in Mailers folder.
+    resetPasswordMailer.sendNewPasswordLink(userFound, accessToken);
+
+    return res.render("check_email", {
+      title: "Check Email",
+    });
+  } catch (err) {
+    console.log("**error resetting the password**", err);
+  }
+};
+
+//* when user clicks on reset link in email verify the link and show the password reset page
+module.exports.resetPasswordPage = async function (req, res) {
+  try {
+    //find if token(received in url) is present in db
+    const resetToken = await ResetToken.findOne({
+      accessToken: req.params.token,
+      isValid: true,
+    });
+
+    if (!resetToken) {
+      req.flash("error", "Invalid Token! Try Again Please");
+      return res.redirect("/");
+    }
+
+    // Find the user associated with the reset token
+
+    const userFound = await User.findById(resetToken.user);
+
+    if (!userFound) {
+      req.flash("error", "Invalid Token! Try Again Please");
+      return res.redirect("/");
+    }
+    res.render("reset-password-form", { resetToken: req.params.token });
+  } catch (error) {
+    console.log(error);
+    return res.redirect("/");
+  }
+};
+
+//* accept the data from reset password form which has new password and change the password in db
+module.exports.resetPassword = async function (req, res) {
+  try {
+    //find if token(received in url) is present in db
+    const resetToken = await ResetToken.findOne({
+      accessToken: req.params.token,
+      isValid: true,
+    });
+
+    if (!resetToken) {
+      req.flash("error", "Invalid Token! Try Again Please");
+      return res.redirect("/");
+    }
+
+    const userFound = await User.findById(resetToken.user);
+    if (!userFound) {
+      req.flash("error", "Invalid Token! Try Again Please");
+      return res.redirect("/");
+    }
+
+    if (req.body.password == req.body.confirm_password) {
+      userFound.password = req.body.password;
+    }
+    resetToken.isValid = false;
+    await userFound.save();
+    req.flash("success", "Password Reset Done! Please Sign In");
+    return res.render("user_sign_in", {
+      title: "AuraVibe | Sign In",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.redirect("/");
+  }
+};
+
+module.exports.passwordResetEmailSend = function (req, res) {
+  return res.render("password-reset-email-form", {
+    title: "Password Reset",
+  });
 };

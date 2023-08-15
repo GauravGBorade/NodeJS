@@ -45,4 +45,13 @@ router.get(
   usersController.createSession
 );
 
+//to verify the email and send the email
+router.post("/createResetToken", usersController.createResetToken);
+
+router.get("/password-reset-form", usersController.passwordResetEmailSend);
+
+//to render the send link to user via email and actually reset the password
+router.get("/reset-password/:token", usersController.resetPasswordPage);
+router.post("/reset-password-submit/:token", usersController.resetPassword);
+
 module.exports = router;
