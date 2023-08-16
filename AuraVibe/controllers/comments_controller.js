@@ -3,6 +3,7 @@ const Post = require("../models/post");
 const commentMailer = require("../mailers/comments_mailer");
 const commentEmailKueWorker = require("../workers/comment_email_worker");
 const queue = require("../config/kue");
+const Like = require("../models/like");
 module.exports.create = async function (req, res) {
   try {
     // post here is an input field we set as hidden with the name "post" in the EJS file.
@@ -72,6 +73,9 @@ module.exports.destroy = async function (req, res) {
       await Post.findByIdAndUpdate(postId, {
         $pull: { comments: req.params.id },
       });
+
+      await Like.deleteMany({ likeable: comment._id, onModel: "Comment" });
+
       return res.redirect("back");
     } else {
       return res.redirect("back");

@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const Like = require("../models/like");
 
 module.exports.create = async function (req, res) {
   try {
@@ -38,6 +39,12 @@ module.exports.destroy = async function (req, res) {
     and req.user.id will give us user who is currently signed in ez */
     //! note that req.user._id gives us id in object format and req.user.id gives us in string format.
     if (post.user == req.user.id) {
+      //deleting the likes on the posts and its comments
+      //post is post's id. as we got from above req.params.id
+      await Like.deleteMany({ likeable: post, onModel: "Post" });
+      //This is the query condition for the deletion. It specifies that documents should be deleted where the _id (unique identifier) of the "Like" document is found in the post.comments array.
+      await Like.deleteMany({ _id: { $in: post.comments } });
+
       post.deleteOne({ id: req.params.id });
       await Comment.deleteMany({ post: req.params.id });
 

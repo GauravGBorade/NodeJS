@@ -40,7 +40,11 @@ module.exports.home = async function (req, res) {
         populate: {
           path: "user",
         },
-      });
+        populate: {
+          path: "likes",
+        },
+      })
+      .populate("likes");
 
     //* then get all the users
     let users = await user.find({});

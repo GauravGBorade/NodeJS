@@ -17,6 +17,8 @@
           let newPost = new newPostInDom(data.data.post, data.data.userName);
           $("#post-list-container>ul").prepend(newPost);
           deletePost($(" .delete-post-button", newPost));
+
+          new ToggleLike($(".toggle-like-button", newPost));
         },
         error: function (err) {
           console.log(err.responseText);
@@ -37,6 +39,16 @@
 
         <p class="feed-container__post-user">${userName}</p>
         <p class="feed-container__post-content">${post.content}</p>
+
+        <small>
+            <a
+              class="toggle-like-button"
+              data-likes="0"
+              href="/likes/toggle/?id=${post._id}&type=Post"
+            >0Likes</a
+          >
+      </small>
+
       </div>
   
     <div class="post-comments">
