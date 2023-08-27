@@ -1,32 +1,79 @@
 .auth__container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100%; }
+  width: 380px;
+  height: 450px;
+  padding: 20px 30px;
+  margin: 0 auto;
+  margin-top: 200px;
+  box-shadow: 0 5px 20px 0 #d9dada;
+  border-radius: 10px;
+  font-family: "Avenir Next";
+  line-height: 1.5; }
+  .auth__container .text-delimiter {
+    position: relative;
+    display: flex;
+    align-items: center; }
+    .auth__container .text-delimiter span:before, .auth__container .text-delimiter span:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 55%;
+      height: 1px;
+      background-color: lightgray; }
+    .auth__container .text-delimiter span:before {
+      left: -90px; }
+    .auth__container .text-delimiter span:after {
+      right: -90px; }
 
 .auth__heading {
-  color: #fff; }
+  font-weight: 600;
+  font-size: 20px; }
+
+.auth__social-auth-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap; }
+  .auth__social-auth-buttons a {
+    width: 50%;
+    margin: 10px;
+    margin-top: 0;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: 2px solid lightgrey;
+    font-size: 20px;
+    border-radius: 5px;
+    color: red;
+    text-align: center; }
+  .auth__social-auth-buttons img {
+    height: 30px; }
 
 .auth__form {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 30px; }
+  justify-content: center;
+  align-items: center; }
   .auth__form input {
-    padding: 10px 25px;
-    outline: none;
-    font-size: 1.25rem;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
-    border: #b64fc8 solid 1px; }
-
-.auth__btn {
-  background-color: #b64fc8;
-  color: white;
-  width: fit-content;
-  margin: 0 auto;
-  cursor: pointer;
-  transition: background-color 500ms ease-in-out; }
-  .auth__btn:hover {
-    background-color: #cf5ae3; }
+    width: 100%;
+    text-decoration: none;
+    margin: 10px;
+    padding: 12px 15px;
+    border: 1px solid #9d9ca2;
+    border-radius: 6px;
+    font-size: 16px; }
+  .auth__form .forgot-password {
+    margin: 10px; }
+    .auth__form .forgot-password a {
+      text-decoration: none;
+      color: red; }
+  .auth__form .submit-button {
+    background-color: black;
+    color: white;
+    width: 90%; }

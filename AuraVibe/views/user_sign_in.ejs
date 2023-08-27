@@ -1,18 +1,26 @@
 <link rel="stylesheet" href="/css/authentication.css" />
 <div class="auth__container">
-  <h1 class="auth__heading">Sign In</h1>
+  <h3 class="auth__heading">Sign in to your account</h3>
 
+  <div class="auth__social-auth-buttons">
+    <a href="/users/auth/google"
+      ><img src="/images/google-icon.png" alt=""
+    /></a>
+  </div>
+  <div class="text-delimiter">
+    <span>or sign in with email</span>
+  </div>
   <form class="auth__form" action="/users/create-session" method="POST">
-    <input type="email" name="email" required placeholder="Enter E-Mail" />
+    <input type="email" name="email" required placeholder="Your email" />
     <input
       type="password"
       name="password"
       required
-      placeholder="Enter Password"
+      placeholder="Your Password"
     />
-    <input class="auth__btn" type="submit" value="Sign In" />
+    <div class="forgot-password">
+      <a href="/users/password-reset-form">Forgot Password ?</a>
+    </div>
+    <input class="submit-button" type="submit" value="Sign In" />
   </form>
-
-  <p><a href="/users/auth/google">Google Sign/Sign Up</a></p>
-  <p><a href="/users/password-reset-form">Reset Password</a></p>
 </div>
