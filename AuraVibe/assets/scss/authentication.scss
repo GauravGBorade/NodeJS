@@ -41,6 +41,9 @@
 // }
 
 .auth {
+  &__container.sign-up-container {
+    height: 500px;
+  }
   &__container {
     display: flex;
     flex-direction: column;
@@ -71,7 +74,7 @@
           content: "";
           position: absolute;
           top: 50%;
-          width: 55%;
+          width: 50%;
           height: 1px;
           background-color: lightgray;
         }
@@ -150,6 +153,12 @@
       background-color: black;
       color: white;
       width: 90%;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #333337;
+        transition: all 0.2s ease-in-out;
+      }
     }
   }
 }

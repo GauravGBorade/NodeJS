@@ -1,3 +1,6 @@
+.auth__container.sign-up-container {
+  height: 500px; }
+
 .auth__container {
   display: flex;
   flex-direction: column;
@@ -19,7 +22,7 @@
       content: "";
       position: absolute;
       top: 50%;
-      width: 55%;
+      width: 50%;
       height: 1px;
       background-color: lightgray; }
     .auth__container .text-delimiter span:before {
@@ -76,4 +79,8 @@
   .auth__form .submit-button {
     background-color: black;
     color: white;
-    width: 90%; }
+    width: 90%;
+    cursor: pointer; }
+    .auth__form .submit-button:hover {
+      background-color: #333337;
+      transition: all 0.2s ease-in-out; }
