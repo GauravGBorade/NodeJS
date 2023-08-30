@@ -41,7 +41,7 @@
   </section>
   <% } %>
 </div>
-<%- include("_chatbot") -%>
+<%- include("_chatbox") -%>
 <script src="/js/toggle_likes.js"></script>
 <script src="/js/home_posts.js"></script>
 <script>
@@ -50,3 +50,18 @@
     let toggleLike = new ToggleLike(self);
   });
 </script>
+
+<!-- setting up chatserver for client side. -->
+
+<script
+  src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+  integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+  crossorigin="anonymous"
+></script>
+
+<script src="/js/chat_engine.js"></script>
+<% if(locals.user){ %>
+<script>
+  new chatEngine("user-chat-box", "<%= locals.user.email %>");
+</script>
+<% } %>

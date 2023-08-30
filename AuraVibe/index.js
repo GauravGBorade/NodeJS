@@ -19,6 +19,13 @@ const googleStrategy = require("./config/passport-google-oauth2-strategy");
 //*used for saving cookie-session in mongodb
 const MongoStore = require("connect-mongo");
 
+//* setting up chat server to be used with socket.io
+
+const chatServer = require("http").Server(app);
+const chatSockets = require("./config/chat_sockets").chatSockets(chatServer);
+chatServer.listen(3000);
+console.log("Chat server is lisetening on port : 3000");
+
 //!Middlewares ->
 
 //* telling app to concert sass files to css using sassMiddleware
