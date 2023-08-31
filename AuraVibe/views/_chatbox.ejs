@@ -2,8 +2,16 @@
 <% if(locals.user){ %>
 <div class="chat-container" id="user-chat-box">
   <div class="chat-messages" id="chat-messages">
-    <div class="message received">Hello there!</div>
-    <div class="message sent">Hey, how's it going?</div>
+    <ul id="chat-message-list">
+      <li class="message other-message">
+        <div class="username">ABC</div>
+        Heyy!
+      </li>
+      <li class="message self-message">
+        <div class="username">XYZ</div>
+        Hello there!
+      </li>
+    </ul>
   </div>
   <div class="chat-input">
     <input type="text" id="message-input" placeholder="Type your message..." />
