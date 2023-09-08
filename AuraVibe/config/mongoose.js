@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
+const env = require("./environment");
 
-mongoose.connect("mongodb://localhost/Aura-Vibe");
+mongoose.connect(`mongodb://localhost/${env.db}`);
 
 const db = mongoose.connection;
 
-db.on("error", console.error.bind(console, "Error connecting to the DB!"));
-
+db.on("error", (err) => {
+  console.error("Error connecting to the DB:", err);
+});
 db.once("open", () => {
   console.log("connected to DB successfully");
 });

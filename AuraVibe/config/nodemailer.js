@@ -3,17 +3,10 @@ const nodemailer = require("nodemailer"); // Module for sending emails
 const ejs = require("ejs"); // Module for rendering HTML templates
 const path = require("path"); // Module for handling file paths
 
+const env = require("./environment");
+
 // Create a transporter to send emails
-let transporter = nodemailer.createTransport({
-  service: "gmail", // Email service provider (e.g., Gmail)
-  host: "smtp.gmail.com", // SMTP server hostname for the service
-  port: 587, // Port number for the SMTP server
-  secure: false, // Set to 'true' to use a secure connection (TLS); 'false' means plain connection
-  auth: {
-    user: "gauravborade96@gmail.com", // Your email address from which you'll send emails
-    pass: "xczcepkfnqohkpec", // Your email account's password or an app-specific password
-  },
-});
+let transporter = nodemailer.createTransport(env.smtp);
 
 // Function to render an EJS template and return the HTML content
 //* we will get these attributes from comments_mailer.js from mailer folder.

@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 8000;
+const env = require("./config/environment");
 const expressLayouts = require("express-ejs-layouts");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -15,6 +16,7 @@ const passportJwt = require("./config/passport-jwt-strategy");
 const flash = require("connect-flash");
 const customMiddleware = require("./config/middleware");
 const googleStrategy = require("./config/passport-google-oauth2-strategy");
+const path = require("path");
 
 //*used for saving cookie-session in mongodb
 const MongoStore = require("connect-mongo");
@@ -30,16 +32,18 @@ console.log("Chat server is lisetening on port : 3000");
 
 //* telling app to concert sass files to css using sassMiddleware
 //!commented this to run on windows
-
-app.use(
-  sassMiddleware({
-    src: "./assets/scss",
-    dest: "./assets/css",
-    debug: false,
-    // outputStyle: "extended",
-    prefix: "/css",
-  })
-);
+if (env.name == "development") {
+  console.log("*********Development Environment is running*******");
+  app.use(
+    sassMiddleware({
+      src: path.join(__dirname, env.asset_path, "/scss"),
+      dest: path.join(__dirname, env.asset_path, "/css"),
+      debug: false,
+      // outputStyle: "extended",
+      prefix: "/css",
+    })
+  );
+}
 
 //* getting the post data inside Body
 // Parse URL-encoded bodies
@@ -54,7 +58,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 //* telling app to use static files from assests folder
-app.use(express.static("./assets"));
+app.use(express.static(env.asset_path));
 
 //* make the uploads path available to the browser
 app.use("/uploads", express.static(__dirname + "/uploads"));
@@ -78,7 +82,7 @@ app.use(
   session({
     name: "AuraVibe",
     //todo -> change the secret before deployment in the production
-    secret: "temptemp",
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     //* setting cookie age

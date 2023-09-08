@@ -2,11 +2,12 @@ const passport = require("passport");
 const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt; // Import ExtractJwt for token extraction
 const User = require("../models/user");
+const env = require("./environment");
 
 // Options for JWT Strategy
 let opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // Extract JWT token from Authorization header
-  secretOrKey: "MacbookAirM1", // Secret key to verify the JWT signature
+  secretOrKey: env.jwt_secret, // Secret key to verify the JWT signature
 };
 
 // Create and use a new JWT Strategy
