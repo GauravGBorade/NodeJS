@@ -4,3 +4,5 @@ node_modules/
 # Ignore package.json and package-lock.json files
 package.json
 package-lock.json
+
+production-logs/

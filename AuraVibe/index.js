@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 8000;
 const env = require("./config/environment");
+const logger = require("morgan");
 const expressLayouts = require("express-ejs-layouts");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -59,6 +60,9 @@ app.use(cookieParser());
 
 //* telling app to use static files from assests folder
 app.use(express.static(env.asset_path));
+
+//* setting up the logger
+app.use(logger(env.morgan.mode, env.morgan.options));
 
 //* make the uploads path available to the browser
 app.use("/uploads", express.static(__dirname + "/uploads"));

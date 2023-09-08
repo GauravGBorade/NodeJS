@@ -1,3 +1,15 @@
+const fs = require("fs");
+const rfs = require("rotating-file-stream");
+const path = require("path");
+
+const logDirectory = path.join(__dirname, "../production-logs");
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+
+const accessLogStream = rfs.createStream("access.log", {
+  interval: "1d",
+  path: logDirectory,
+});
+
 const development = {
   name: "development",
   asset_path: "./assets",
@@ -19,6 +31,12 @@ const development = {
   google_client_url: "http://localhost:8000/users/auth/google/callback", // Callback URL after successful authentication
 
   jwt_secret: "MacbookAirM1",
+  morgan: {
+    mode: "dev",
+    options: {
+      stream: accessLogStream,
+    },
+  },
 };
 
 const production = {
@@ -41,5 +59,14 @@ const production = {
   google_client_url: process.env.AURAVIBE_GOOGLE_CLIENT_URL, // Callback URL after successful authentication
 
   jwt_secret: process.env.AURAVIBE_JWT_SECRET,
+
+  morgan: {
+    mode: "combined",
+    options: {
+      stream: accessLogStream,
+    },
+  },
 };
-module.exports = eval(process.env.AURAVIBE_ENVIRONMENT == undefined ? development : production);
+module.exports = eval(
+  process.env.AURAVIBE_ENVIRONMENT == undefined ? development : production
+);
