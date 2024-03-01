@@ -6,6 +6,8 @@ module.exports.chatSockets = function (chatServer) {
     },
   });
 
+  //on connection
+
   io.sockets.on("connection", function (socket) {
     console.log("new connection received at observer server", socket.id);
 
