@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 
-//impororting posts_api.js from controllers.
+//importing posts_api.js from controllers.
 const postApi = require("../../../controllers/api/v1/posts_api");
 
 //getting lists of posts from controller.

@@ -4,6 +4,7 @@ const commentMailer = require("../mailers/comments_mailer");
 const commentEmailKueWorker = require("../workers/comment_email_worker");
 const queue = require("../config/kue");
 const Like = require("../models/like");
+
 module.exports.create = async function (req, res) {
   try {
     // post here is an input field we set as hidden with the name "post" in the EJS file.
